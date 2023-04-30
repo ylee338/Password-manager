@@ -4,12 +4,17 @@ from tkinter import *
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-
+def save():
+    with open("data.txt", "a") as file:
+        file.write(f"{web_entry.get()}|{email_entry.get()}|{password_entry.get()}\n")
+    web_entry.delete(0, END)
+    password_entry.delete(0, END)
+    web_entry.focus()
 # ---------------------------- UI SETUP ------------------------------- #
 # create window
 window = Tk()
 window.title("Password Manager")
-window.config(padx=20, pady=20)
+window.config(padx=50, pady=50)
 
 # image canvas
 canvas = Canvas(height=200, width=200)
@@ -22,23 +27,25 @@ web_label.grid(row=1, column=0)
 
 web_entry = Entry(width=35)
 web_entry.grid(row=1, column=1, columnspan=2)
+web_entry.focus()
 
 email_label = Label(text="Email/Username:")
 email_label.grid(row=2, column=0)
 
 email_entry = Entry(width=35)
 email_entry.grid(row=2, column=1, columnspan=2)
+email_entry.insert(0, "ylee1359256@gmail.com")
 
 password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
-password_entry = Entry(width=21)
-password_entry.grid(row=3, column=1)
+password_entry = Entry(width=35)
+password_entry.grid(row=3, column=1, columnspan=2)
 
 generate_button = Button(text="Generate Password")
-generate_button.grid(row=3, column=2)
+generate_button.grid(row=3, column=2, columnspan=2)
 
-add_button = Button(text="Add", width=36)
+add_button = Button(text="Add", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 
 

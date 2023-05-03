@@ -3,6 +3,22 @@ from tkinter import messagebox
 from random import choice, randint, shuffle
 import json
 
+
+def find_pass():
+    web = web_entry.get()
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print("No data file found")
+    else:
+        if web in data:
+            messagebox.showinfo(title=f"{web} Information", message=f"Email: {data[web]['email']}\n Password: {data[web]['password']}")
+        else:
+            print("No details for the website exists")
+
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
 
@@ -77,6 +93,9 @@ web_entry = Entry(width=35)
 web_entry.grid(row=1, column=1, columnspan=2)
 web_entry.focus()
 
+search_button = Button(text="search", command=find_pass)
+search_button.grid(row=1, column=2, columnspan=3)
+
 email_label = Label(text="Email/Username:")
 email_label.grid(row=2, column=0)
 
@@ -91,10 +110,10 @@ password_entry = Entry(width=35)
 password_entry.grid(row=3, column=1, columnspan=2)
 
 generate_button = Button(text="Generate Password", command=generate_password)
-generate_button.grid(row=3, column=2, columnspan=2)
+generate_button.grid(row=3, column=3, columnspan=3)
 
-add_button = Button(text="Add", width=36, command=save)
-add_button.grid(row=4, column=1, columnspan=2)
+add_button = Button(text="Add", width=37, command=save)
+add_button.grid(row=4, column=1, columnspan=3)
 
 
 
